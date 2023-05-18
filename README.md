@@ -1,10 +1,10 @@
 # Stelle120
 
-Sets your custom FPS for Star Rail
+Sets your custom FPS in Star Rail
 
 ## Usage
 
-1. Download the latest release from the [releases page]()
+1. Download the latest release from the [releases page](https://github.com/teppyboy/stelle120/releases)
 2. Run the executable
 
 ## Building
@@ -12,7 +12,7 @@ Sets your custom FPS for Star Rail
 Either press the build button in VS Code or run manually:
 
 ```bash
-g++ -g src/stelle120.cpp -o Stelle120.exe
+g++ -g src/stelle120.cpp -o stelle120.exe
 ```
 #### Why not Visual Studio?
 

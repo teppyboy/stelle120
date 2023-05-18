@@ -12,31 +12,11 @@ int _main(bool dryRun = false, int targetFPS = -1) {
     LONG lResult;
     HKEY hKey;
 
-    printf("Stelle120 v0.1.0\n\n");
+    printf("Stelle120 v0.1.1\n\n");
     printf("By using this software you agree that you love Stelle <3\n\n");
     printf("Setting the FPS to custom value will break the graphics settings menu.\n");
     printf("To fix that simply set the FPS again to 60/30.\n\n");
-    printf("Set current FPS target to: ");
-    if (targetFPS == -1) {
-        std::cin >> targetFPS;
-    } else {
-        printf("%d\n", targetFPS);
-    }
-    if (targetFPS > 120) 
-    {
-        std::string answer;
-        printf("Target FPS is higher than 120, which is not supported and will be reset by the game.\n");
-        printf("Continue? [N/y]: ");
-        answer = std::cin.get();
-        if (answer == "y") {
-            printf("Continuing (at your own risk)...\n");
-        }
-        else {
-            printf("Aborting...\n");
-            return 2;
-        }
-    }
-    printf("\n");
+
     printf("Opening Star Rail registry key...\n");
     lResult = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Cognosphere\\Star Rail", 0, KEY_ALL_ACCESS, &hKey);
     if (lResult != ERROR_SUCCESS) 
@@ -60,7 +40,7 @@ int _main(bool dryRun = false, int targetFPS = -1) {
     {
         if (lResult == ERROR_FILE_NOT_FOUND) {
             printf("Star Rail registry key not found.\n");
-            printf("You need to open Star Rail at least once.\n");
+            printf("You need to open Star Rail and change its graphics settings at least once.\n");
             return 1;
         } 
         else {
@@ -69,10 +49,32 @@ int _main(bool dryRun = false, int targetFPS = -1) {
             return -1;
         }
     }
-    printf("Current settings: ");
-    printf(buffer);
-    printf("\n");
     json settings = json::parse((std::string)buffer);
+
+    printf("\nCurrent FPS: ");
+    printf(settings["FPS"].dump().c_str());
+    printf("\n");
+    printf("Set current FPS target to: ");
+    if (targetFPS == -1) {
+        std::cin >> targetFPS;
+    } else {
+        printf("%d\n", targetFPS);
+    }
+    if (targetFPS > 120) 
+    {
+        std::string answer;
+        printf("Target FPS is higher than 120, which is not supported and will be reset by the game.\n");
+        printf("Continue? [N/y]: ");
+        answer = std::cin.get();
+        if (answer == "y") {
+            printf("Continuing (at your own risk)...\n");
+        }
+        else {
+            printf("Aborting...\n");
+            return 2;
+        }
+    }
+    printf("\n");
     printf("Changing FPS target... ");
     settings["FPS"] = targetFPS;
     printf("OK\n");
