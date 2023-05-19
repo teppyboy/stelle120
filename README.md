@@ -14,6 +14,14 @@ Either press the build button in VS Code or run manually:
 ```bash
 g++ -g src/stelle120.cpp -o stelle120.exe
 ```
+### Cross-compiling
+
+Assuming you have the mingw-w64 toolchain installed, run:
+
+```bash
+x86_64-w64-mingw32-g++ -g src/stelle120.cpp -o stelle120.exe
+```
+
 #### Why not Visual Studio?
 
 No.
