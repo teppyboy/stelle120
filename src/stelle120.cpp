@@ -1,21 +1,29 @@
 #include <cstdio>
 #include <iostream>
 #include <windows.h>
+#include <winuser.h>
 #include <winreg.h>
 #include <fstream>
 #include "lib/json.hpp"
 using json = nlohmann::json;
 
 
-int _main(bool dryRun = false, int targetFPS = -1) {
+int _main(bool dryRun = false, int targetFPS = -1, int VSync = -1) {
     LONG lResult;
     HKEY hKey;
-    
+    DEVMODE devMode; 
+    int displayRefreshRate = 0;
+
     SetConsoleTitleA("Stelle120 v0.1.2");
     printf("Stelle120 v0.1.2\n\n");
     printf("By using this software you agree that you love Stelle <3\n\n");
     printf("Setting the FPS to custom value will break the graphics settings menu.\n");
     printf("To fix that simply set the FPS again to 60/30.\n\n");
+
+    // Get display refresh rate
+    if (EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &devMode) != 0) {
+        displayRefreshRate = devMode.dmDisplayFrequency;
+    }
 
     printf("Opening Star Rail registry key...\n");
     lResult = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Cognosphere\\Star Rail", 0, KEY_ALL_ACCESS, &hKey);
@@ -80,17 +88,36 @@ int _main(bool dryRun = false, int targetFPS = -1) {
     printf("OK\n");
     if (settings["EnableVSync"].dump() == "true") 
     {
-        printf("VSync is enabled, do you want to disable VSync? [Y/n]: ");
-        std::string answer;
-        std::cin >> answer;
-        if (answer == "n") {
-            printf("Okay, just keep in mind that the FPS will be limited to your monitor refresh rate.\n");
-        }
-        else {
+        if (VSync == 0) {
             printf("Disabling VSync... ");
             settings["EnableVSync"] = false;
             printf("OK\n");
         }
+        else if (VSync =! 1) {
+            if (targetFPS > displayRefreshRate && displayRefreshRate != 0) 
+            {
+                printf("VSync is enabled, and your monitor current refresh rate is smaller than the target FPS.\n");
+                printf("Do you want to disable VSync? [Y/n]: ");
+            }
+            else {
+                printf("VSync is enabled, do you want to disable VSync? [Y/n]: ");
+            }
+            std::string answer;
+            std::cin >> answer;
+            if (answer == "n") {
+                printf("Okay, just keep in mind that the FPS will be limited to your monitor refresh rate.\n");
+            }
+            else {
+                printf("Disabling VSync... ");
+                settings["EnableVSync"] = false;
+                printf("OK\n");
+            }
+        }
+    }
+    else if (VSync == 1) {
+        printf("Enabling VSync... ");
+        settings["EnableVSync"] = true;
+        printf("OK\n");
     }
     char newSettings[bufferSize];
     sprintf(newSettings, settings.dump().c_str());
@@ -118,16 +145,23 @@ int _main(bool dryRun = false, int targetFPS = -1) {
 int main(int argc, char* argv[]) {
     bool dryRun = false;
     bool noPause = false;
+    int targetFPS = -1;
+    int VSync = -1;
     for (int i = 0; i < argc; i++)
     {
+        std::string arg = std::string(argv[i]);
         if (argv[i] == "--no-pause") {
             noPause = true;
         } else if (argv[i] == "--dry-run") {
-            printf("Dry run enabled, changes will not be saved.");
+            printf("Dry run enabled, changes will not be saved.\n");
             dryRun = true;
+        } else if (arg.substr(0, 12) == "--target-fps=") {
+            targetFPS = std::stoi(arg.substr(13));
+        } else if (arg.substr(0, 8) == "--vsync=") {
+            VSync = std::stoi(arg.substr(9));
         }
     }
-    int result = _main(dryRun);
+    int result = _main(dryRun, targetFPS, VSync);
     if (!noPause) {
         printf("Press any key to exit...");
         std::cin.ignore();
