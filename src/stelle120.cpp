@@ -93,7 +93,7 @@ int _main(bool dryRun = false, int targetFPS = -1, int VSync = -1) {
             settings["EnableVSync"] = false;
             printf("OK\n");
         }
-        else if (VSync =! 1) {
+        else if (VSync != 1) {
             if (targetFPS > displayRefreshRate && displayRefreshRate != 0) 
             {
                 printf("VSync is enabled, and your monitor current refresh rate is smaller than the target FPS.\n");
@@ -138,7 +138,7 @@ int _main(bool dryRun = false, int targetFPS = -1, int VSync = -1) {
     RegCloseKey(hKey);
     printf("OK\n\n");
     printf("To apply the changes you need to restart Star Rail.\n");
-    printf("Do NOT open the graphics settings before restarting or the settings will be reset.\n\n");
+    printf("Do NOT open the graphics settings before restarting or the settings will be resetted.\n\n");
     return 0;
 }
 
