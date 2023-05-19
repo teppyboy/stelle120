@@ -8,10 +8,9 @@ using json = nlohmann::json;
 
 
 int _main(bool dryRun = false, int targetFPS = -1) {
-    const char NULL_CHAR = '\0';
     LONG lResult;
     HKEY hKey;
-
+    
     printf("Stelle120 v0.1.1\n\n");
     printf("By using this software you agree that you love Stelle <3\n\n");
     printf("Setting the FPS to custom value will break the graphics settings menu.\n");
