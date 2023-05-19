@@ -7,6 +7,15 @@ Sets your custom FPS in Star Rail
 1. Download the latest release from the [releases page](https://github.com/teppyboy/stelle120/releases)
 2. Run the executable
 
+### Command line arguments
+
+There are some CLI arguments you can use to customize the program.
+
++ `--target-fps=<fps>`: Sets the target FPS, by default will ask the user.
++ `--vsync=<1/0>`: Sets whether to enable VSync or not, by default will ask the user to disable if enabled.
++ `--no-pause`: Disables the "pause" (Press any key to continue) after the program has finished.
++ `--dry-run`: Do not save the changes to the file, just print the changes to the console.
+
 ## Building
 
 Either press the build button in VS Code or run `make` in the root directory.
