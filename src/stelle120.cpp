@@ -65,7 +65,7 @@ int _main(bool dryRun = false, int targetFPS = -1) {
         std::string answer;
         printf("Target FPS is higher than 120, which is not supported and will be reset by the game.\n");
         printf("Continue? [N/y]: ");
-        answer = std::cin.get();
+        std::cin >> answer;
         if (answer == "y") {
             printf("Continuing (at your own risk)...\n");
         }
@@ -82,7 +82,7 @@ int _main(bool dryRun = false, int targetFPS = -1) {
     {
         printf("VSync is enabled, do you want to disable VSync? [Y/n]: ");
         std::string answer;
-        answer = std::cin.get();
+        std::cin >> answer;
         if (answer == "n") {
             printf("Okay, just keep in mind that the FPS will be limited to your monitor refresh rate.\n");
         }
