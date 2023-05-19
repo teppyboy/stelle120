@@ -14,8 +14,8 @@ int _main(bool dryRun = false, int targetFPS = -1, int VSync = -1) {
     DEVMODE devMode; 
     int displayRefreshRate = 0;
 
-    SetConsoleTitleA("Stelle120 v0.1.2");
-    printf("Stelle120 v0.1.2\n\n");
+    SetConsoleTitleA("Stelle120 v0.2.0");
+    printf("Stelle120 v0.2.0\n\n");
     printf("By using this software you agree that you love Stelle <3\n\n");
     printf("Setting the FPS to custom value will break the graphics settings menu.\n");
     printf("To fix that simply set the FPS again to 60/30.\n\n");
