@@ -39,7 +39,7 @@ int _main(bool dryRun = false, int targetFPS = -1) {
     if (lResult != ERROR_SUCCESS) 
     {
         if (lResult == ERROR_FILE_NOT_FOUND) {
-            printf("Star Rail registry key not found.\n");
+            printf("Star Rail graphics settings registry key not found.\n");
             printf("You need to open Star Rail and change its graphics settings at least once.\n");
             return 1;
         } 
