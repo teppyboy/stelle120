@@ -150,15 +150,18 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++)
     {
         std::string arg = std::string(argv[i]);
-        if (argv[i] == "--no-pause") {
+        if (arg == (std::string)"--no-pause") {
+            printf("Will not pause after execution.\n");
             noPause = true;
-        } else if (argv[i] == "--dry-run") {
+        } else if (arg == (std::string)"--dry-run") {
             printf("Dry run enabled, changes will not be saved.\n");
             dryRun = true;
-        } else if (arg.substr(0, 12) == "--target-fps=") {
+        } else if (arg.substr(0, 13) == (std::string)"--target-fps=") {
+            printf("Target FPS set to %s\n", arg.substr(13).c_str());
             targetFPS = std::stoi(arg.substr(13));
-        } else if (arg.substr(0, 8) == "--vsync=") {
-            VSync = std::stoi(arg.substr(9));
+        } else if (arg.substr(0, 8) == (std::string)"--vsync=") {
+            printf("VSync set to %s\n", arg.substr(8).c_str());
+            VSync = std::stoi(arg.substr(8));
         }
     }
     int result = _main(dryRun, targetFPS, VSync);
