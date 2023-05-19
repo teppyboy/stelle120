@@ -9,20 +9,13 @@ Sets your custom FPS in Star Rail
 
 ## Building
 
-Either press the build button in VS Code or run manually:
+Either press the build button in VS Code or run `make` in the root directory.
 
-```bash
-g++ -g src/stelle120.cpp -o stelle120.exe
-```
 ### Cross-compiling
 
-Assuming you have the mingw-w64 toolchain installed, run:
+Assuming you have the mingw-w64 toolchain installed, run `make` in the root directory.
 
-```bash
-x86_64-w64-mingw32-g++ -g src/stelle120.cpp -o stelle120.exe
-```
-
-#### Why not Visual Studio?
+#### Why not Visual Studio (MSBuild)?
 
 No.
 
