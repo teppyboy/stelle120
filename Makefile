@@ -6,7 +6,7 @@ stelle120.exe: src/stelle120.cpp
 	strip stelle120.exe
 
 stelle120.debug.exe: src/stelle120.cpp
-	x86_64-w64-mingw32-g++ -g src/stelle120.cpp -o stelle120.debug.exe
+	x86_64-w64-mingw32-g++ -g src/stelle120.cpp -static -static-libgcc -static-libstdc++ -o stelle120.debug.exe
 
 all: stelle120.exe stelle120.debug.exe
 
