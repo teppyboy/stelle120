@@ -162,6 +162,15 @@ int main(int argc, char* argv[]) {
         } else if (arg.substr(0, 8) == (std::string)"--vsync=") {
             printf("VSync set to %s\n", arg.substr(8).c_str());
             VSync = std::stoi(arg.substr(8));
+        } else if (arg.substr(0, 6) == (std::string)"--help") {
+            printf("Usage: stelle120.exe [--dry-run] [--no-pause] [--target-fps=FPS] [--vsync=0/1]\n");
+            printf("  --dry-run: Do not save the changes.\n");
+            printf("  --no-pause: Do not pause after execution.\n");    
+            printf("  --target-fps=FPS: Set the target FPS to FPS.\n");
+            printf("  --vsync=0/1: Set VSync to 0 (off) or 1 (on).\n");
+            printf("  --help: Show this help.\n");
+            printf("See https://github.com/teppyboy/stelle120#command-line-arguments for more info.\n");
+            return 0;
         }
     }
     int result = _main(dryRun, targetFPS, VSync);

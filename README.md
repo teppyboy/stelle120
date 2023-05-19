@@ -15,6 +15,7 @@ There are some CLI arguments you can use to customize the program.
 + `--vsync=<1/0>`: Sets whether to enable VSync or not, by default will ask the user to disable if enabled.
 + `--no-pause`: Disables the "pause" (Press any key to continue) after the program has finished.
 + `--dry-run`: Do not save the changes to the file, just print the changes to the console.
++ `--help`: Prints the help message.
 
 ## Building
 
