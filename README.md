@@ -1,3 +1,5 @@
+> Currently this is not working due to the game resetting settings on launch. I will try to find a way to fix this.
+
 # Stelle120
 
 Sets your custom FPS in Star Rail

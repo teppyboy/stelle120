@@ -5,8 +5,10 @@
 #include <winreg.h>
 #include <fstream>
 #include "lib/json.hpp"
-using json = nlohmann::json;
+using json = nlohmann::ordered_json;
 
+const LPCSTR OSRegAddr = "Software\\Cognosphere\\Star Rail";
+const LPCSTR OSRegGraphicsKey = "GraphicsSettings_Model_h2986158309";
 
 int _main(bool dryRun = false, int targetFPS = -1, int VSync = -1) {
     LONG lResult;
@@ -26,7 +28,7 @@ int _main(bool dryRun = false, int targetFPS = -1, int VSync = -1) {
     }
 
     printf("Opening Star Rail registry key...\n");
-    lResult = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Cognosphere\\Star Rail", 0, KEY_ALL_ACCESS, &hKey);
+    lResult = RegOpenKeyExA(HKEY_CURRENT_USER, OSRegAddr, 0, KEY_ALL_ACCESS, &hKey);
     if (lResult != ERROR_SUCCESS) 
     {
         if (lResult == ERROR_FILE_NOT_FOUND) {
@@ -43,7 +45,7 @@ int _main(bool dryRun = false, int targetFPS = -1, int VSync = -1) {
     DWORD bufferSize = 256;
     char buffer[bufferSize];
     printf("Reading settings...\n");
-    lResult = RegGetValueA(hKey, NULL, "GraphicsSettings_Model_h2986158309", RRF_RT_ANY, NULL, (PVOID)&buffer, (LPDWORD)&bufferSize);
+    lResult = RegGetValueA(hKey, NULL, OSRegGraphicsKey, RRF_RT_ANY, NULL, (PVOID)&buffer, (LPDWORD)&bufferSize);
     if (lResult != ERROR_SUCCESS) 
     {
         if (lResult == ERROR_FILE_NOT_FOUND) {
@@ -127,7 +129,7 @@ int _main(bool dryRun = false, int targetFPS = -1, int VSync = -1) {
     printf("Writing settings... ");
     if (!dryRun) {
         const BYTE *newSettingsBytes = reinterpret_cast<const BYTE*>(newSettings);
-        lResult = RegSetValueExA(hKey, "GraphicsSettings_Model_h2986158309", 0, REG_BINARY, newSettingsBytes, sizeof(newSettings));
+        lResult = RegSetValueExA(hKey, OSRegGraphicsKey, 0, REG_BINARY, newSettingsBytes, sizeof(newSettings));
         if (lResult != ERROR_SUCCESS) 
         {
             printf("Error setting Star Rail registry key: ");
