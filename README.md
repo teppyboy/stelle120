@@ -1,4 +1,5 @@
-> Currently this is not working due to the game resetting settings on launch. I will try to find a way to fix this.
+> ~~Currently this is not working due to the game resetting settings on launch. I will try to find a way to fix this.~~<br>
+> In version 1.3 it worked again, somehow miHoYo.
 
 # Stelle120
 
